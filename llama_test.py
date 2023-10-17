@@ -73,27 +73,27 @@ class LLaMaEvaluator:
                 torch_dtype=torch.float16,
                 device_map='auto'
             ) #.to(self.args.device_id)
-            checkpoint_dir = os.path.join(self.args.home,"lora-alpaca")
-            if not checkpoint_dir:
-                resume_from_checkpoint = None
-            else:
-                all_files = os.listdir(checkpoint_dir)
-                # print(all_files)
-                all_files = [f for f in all_files if "RQ6_E0" in f]
-                if not all_files:
-                    resume_from_checkpoint = None
-                else:
-                    all_files.sort(key=lambda x: os.path.getmtime(os.path.join(checkpoint_dir, x)), reverse=True)
-                    print(all_files)
-                    most_recent_checkpoint = os.path.join(checkpoint_dir, all_files[0])
-                    resume_from_checkpoint = most_recent_checkpoint
-                    print(resume_from_checkpoint)
+            saved_model_path = os.path.join(self.args.home, "lora-alpaca", self.args.lora_weights)
+            # if not checkpoint_dir:
+            #     resume_from_checkpoint = None
+            # else:
+            #     all_files = os.listdir(checkpoint_dir)
+            #     # print(all_files)
+            #     all_files = [f for f in all_files if "RQ6_E0" in f]
+            #     if not all_files:
+            #         resume_from_checkpoint = None
+            #     else:
+            #         all_files.sort(key=lambda x: os.path.getmtime(os.path.join(checkpoint_dir, x)), reverse=True)
+            #         print(all_files)
+            #         most_recent_checkpoint = os.path.join(checkpoint_dir, all_files[0])
+            #         resume_from_checkpoint = most_recent_checkpoint
+            #         print(resume_from_checkpoint)
             # todo: For evaluating the PEFT model
-            # model = PeftModel.from_pretrained(
-            #     model,
-            #     resume_from_checkpoint,
-            #     torch_dtype=torch.float16,
-            # )
+            model = PeftModel.from_pretrained(
+                model,
+                saved_model_path,
+                torch_dtype=torch.float16,
+            )
         else:
             model = LlamaForCausalLM.from_pretrained(
                 base_model, device_map={"": device}, low_cpu_mem_usage=True

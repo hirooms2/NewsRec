@@ -126,7 +126,7 @@ if __name__ == '__main__':
     
     if 'llama' in args.base_model.lower():
         from llama_finetune import llama_finetune
-        from preliminary.llama_test import LLaMaEvaluator
+        from llama_test import LLaMaEvaluator
         tokenizer = LlamaTokenizer.from_pretrained(args.base_model)
 
         evaluator = LLaMaEvaluator(args=args, tokenizer=tokenizer, restrict_decode_vocab=None, instructions=instructions, labels=labels)
