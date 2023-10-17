@@ -4,9 +4,9 @@ import os
 
 def read_data(args):
     if args.mode == "train":
-        data_file_path = os.path.join(args.home,f"Task{args.task}", 'data/train', f'rq{args.rq_num}.json')
+        data_file_path = os.path.join('data/train', f'rq{args.rq_num}.json')
     elif args.mode == "test":
-        data_file_path = os.path.join(args.home,f"Task{args.task}", 'data/train', f'rq{args.rq_num}.json')
+        data_file_path = os.path.join('data/train', f'rq{args.rq_num}.json')
     RQ_data = json.load((open(data_file_path, 'r', encoding='utf-8')))
     question, answer = [], []
     data_samples = []

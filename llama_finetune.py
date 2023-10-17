@@ -6,7 +6,6 @@ import torch
 import transformers
 from datasets import load_dataset, Dataset
 from transformers import Trainer, TrainingArguments, TrainerState, TrainerControl
-import wandb
 
 from utils.parser import parse_args
 from utils.parser import checkPath
@@ -43,6 +42,9 @@ from utils.prompter import Prompter
 class QueryEvalCallback(TrainerCallback):
     def __init__(self, log_name):
         self.log_name = log_name
+
+    def on_step_end(self, args: TrainingArguments, state: TrainerState, control: TrainerControl, **kwargs):
+        print()
 
     def on_epoch_end(self, args: TrainingArguments, state: TrainerState, control: TrainerControl, **kwargs):
         model = kwargs['model']

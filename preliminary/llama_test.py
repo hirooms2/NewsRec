@@ -89,11 +89,11 @@ class LLaMaEvaluator:
                     resume_from_checkpoint = most_recent_checkpoint
                     print(resume_from_checkpoint)
             # todo: For evaluating the PEFT model
-            model = PeftModel.from_pretrained(
-                model,
-                resume_from_checkpoint,
-                torch_dtype=torch.float16,
-            )
+            # model = PeftModel.from_pretrained(
+            #     model,
+            #     resume_from_checkpoint,
+            #     torch_dtype=torch.float16,
+            # )
         else:
             model = LlamaForCausalLM.from_pretrained(
                 base_model, device_map={"": device}, low_cpu_mem_usage=True

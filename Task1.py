@@ -1,18 +1,13 @@
 import os
-
-import wandb
-from tqdm import tqdm
-from transformers import AutoTokenizer, AutoModelForCausalLM, LlamaTokenizer, T5Tokenizer
-import transformers
+from transformers import AutoTokenizer, LlamaTokenizer, T5Tokenizer
 import torch
 import json
-import argparse
-import logging
-from torch.utils.data import Dataset, DataLoader
+
+from torch.utils.data import Dataset
 from datetime import datetime
 from pytz import timezone
-
-# from chatgpt_test import chatgpt_test
+import wandb
+# from chatgpt_test import chatgpt_testxxxxxx
 
 from utils.data import read_data
 from utils.parser import parse_args
@@ -130,7 +125,7 @@ if __name__ == '__main__':
     # ###
     
     if 'llama' in args.base_model.lower():
-        from preliminary.llama_finetune import llama_finetune
+        from llama_finetune import llama_finetune
         from preliminary.llama_test import LLaMaEvaluator
         tokenizer = LlamaTokenizer.from_pretrained(args.base_model)
 
@@ -157,8 +152,7 @@ if __name__ == '__main__':
 
     elif 'bert' in args.base_model.lower():  # 
         from preliminary.bert_finetune import bert_finetune
-        from preliminary.bert_test import BERTEvaluator
-        
+
         # if args.debug: args.device_id='cpu'
         tokenizer = AutoTokenizer.from_pretrained(args.base_model)
         # evaluator = BERTEvaluator(args=args, tokenizer=tokenizer, instructions=instructions, labels=labels)
