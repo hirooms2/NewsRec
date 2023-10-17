@@ -95,7 +95,7 @@ if __name__ == '__main__':
 
     args.log_file = log_file
     question_data = read_data(args)
-    instructions = [i[0] for i in question_data]
+    instructions = [i[0].split('<')[1].split('>')[0] for i in question_data]
     labels = [i[1] for i in question_data]
 
     # print("Instructions: ",instructions[0]) # Following text is an ID of the news. 'N88753'. what is the title of the news?
