@@ -88,6 +88,8 @@ if __name__ == '__main__':
     result_path = os.path.join(args.output_dir, args.base_model.replace('/', '-'))
     if not os.path.exists(result_path): os.mkdir(result_path)
 
+    args.log_name = mdhm + '_' + args.base_model.replace('/', '-') + '_' + f'rq{args.rq_num}' + '_' + args.log_name
+
     if args.log_file == '':
         log_file = open(os.path.join(result_path, f'rq{args.rq_num}_{mdhm}.json'), 'a', buffering=1, encoding='UTF-8')
     else:
